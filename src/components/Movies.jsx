@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Oval } from "react-loader-spinner";
-import { toast } from "react-toastify";
+import Filter from "./Filter";
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -17,24 +18,38 @@ const Movies = () => {
         setLoading(false);
       } catch (err) {
         console.log("err", err);
-        toast.error("Failed");
+        alert(err.message);
       }
     };
     fetchMovies();
   }, []);
+
+  const filteredMovies = movies.filter((movie) => {
+    if (searchValue === "") {
+      return movie;
+    } else {
+      // console.log("searchValue", searchValue);
+      return movie?.release_date?.includes(searchValue);
+    }
+  });
 
   return (
     <div>
       <h1 className="text-center text-white font-bold text-3xl py-2">
         All Movies{" "}
       </h1>
+      <Filter
+        movies={movies}
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+      />
       {loading ? (
         <div className="loader">
           <Oval color="black" secondaryColor="white" />
         </div>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-4 xl:grid-cols-3">
-          {movies?.map((movie) => {
+          {filteredMovies?.map((movie) => {
             return (
               <div className="px-4">
                 <img
