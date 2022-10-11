@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { BiMoviePlay } from "react-icons/bi";
+import axios from "axios";
 
 const Header = () => {
   return (

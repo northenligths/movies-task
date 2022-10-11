@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Oval } from "react-loader-spinner";
 import Filter from "./Filter";
+import { useNavigate } from "react-router-dom";
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchValue, setSearchValue] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -51,7 +53,10 @@ const Movies = () => {
         <div className="grid grid-cols-2 sm:grid-cols-4 xl:grid-cols-3">
           {filteredMovies?.map((movie) => {
             return (
-              <div className="px-4">
+              <div
+                className="px-4 cursor-pointer"
+                onClick={() => navigate(`movie/${movie.id}`)}
+              >
                 <img
                   src={`https://image.tmdb.org/t/p/original${movie?.backdrop_path}`}
                   alt=""

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../components/Header";
 import Movies from "../components/Movies";
+import axios from "axios";
 
 const Homepage = () => {
   return (
