@@ -10,7 +10,9 @@ const Filter = ({ movies, setSearchValue, searchValue }) => {
         <option>Sort By Release Date</option>;
         {movies.map((movie) => {
           return (
-            <option value={movie.release_date}>{movie.release_date}</option>
+            <option key={movie.id} value={movie.release_date}>
+              {movie.release_date}
+            </option>
           );
         })}
       </select>

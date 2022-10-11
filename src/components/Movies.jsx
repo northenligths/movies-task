@@ -18,7 +18,7 @@ const Movies = () => {
       const url = "https://movie-task.vercel.app/api/popular?page=1";
       try {
         const response = await axios.get(url);
-        console.log("res", response.data.data.results);
+        // console.log("res", response.data.data.results);
         setMovies(response.data.data.results);
         setLoading(false);
       } catch (err) {
@@ -61,6 +61,7 @@ const Movies = () => {
           {filteredMovies?.map((movie) => {
             return (
               <div
+                key={movie.id}
                 className="px-4 cursor-pointer"
                 onClick={() => navigate(`movie/${movie.id}`)}
               >

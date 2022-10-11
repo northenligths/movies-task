@@ -6,10 +6,10 @@ const Pagination = ({ totalMovies, moviesPerPage, setCurrentPage }) => {
     pages.push(i);
   }
   return (
-    <div>
+    <div className="flex justify-around">
       {pages.map((page, index) => {
         return (
-          <div className="flex items-center justify-between flex-row">
+          <div className="border border-white px-6 py-2">
             <button
               key={index}
               className="text-white"
