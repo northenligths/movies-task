@@ -3,12 +3,15 @@ import axios from "axios";
 import { Oval } from "react-loader-spinner";
 import Filter from "./Filter";
 import { useNavigate } from "react-router-dom";
+import Pagination from "./Pagination";
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [moviesPerPage, setMoviesPerPage] = useState(6);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -26,7 +29,11 @@ const Movies = () => {
     fetchMovies();
   }, []);
 
-  const filteredMovies = movies.filter((movie) => {
+  const lastMovieIndex = currentPage * moviesPerPage;
+  const firstMovieIndex = lastMovieIndex - moviesPerPage;
+  const currentMovies = movies.slice(firstMovieIndex, lastMovieIndex);
+
+  const filteredMovies = currentMovies.filter((movie) => {
     if (searchValue === "") {
       return movie;
     } else {
@@ -69,6 +76,11 @@ const Movies = () => {
           })}
         </div>
       )}
+      <Pagination
+        totalMovies={movies.length}
+        moviesPerPage={moviesPerPage}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 };
